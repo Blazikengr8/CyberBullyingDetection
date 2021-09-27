@@ -34,11 +34,15 @@ async def _8ball(ctx, *, question): #* allows to take multiple arguments
 
 @client.event
 async def on_message(message):
+    name = 'Cyber_Safer'
     print(f'{message.author} has sent the message: {message.content}')
     if sentiment_analysis.analyze(message.content) == 0:
         mention = message.author.mention
-        response = f"hey {mention}, maybe chill a bit"
-        print(response)
+        if name in message.content:
+            response = f"{mention}, don't talk about your dad like that!"
+        else:
+            response = f"hey {mention}, maybe chill a bit"
+            print(response)
         await message.channel.send(response)
 
 
