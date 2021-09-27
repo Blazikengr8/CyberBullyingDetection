@@ -17,15 +17,6 @@ async def on_member_join(member):
 async def on_member_remove(member):
     print(f'{member} has left a server.')
 
-@client.event
-async def on_message(message):
-    print(f'{message.author} has sent the message: {message.content}')
-    if sentiment_analysis.analyze(message.content) == 0:
-        mention = message.author.mention
-        response = f"hey {mention}, maybe chill a bit"
-        print(response)
-        await message.channel.send(response)
-
 @client.command()
 async def ping(ctx):
     await ctx.send(f'Pong! {round(client.latency * 1000)}ms')
@@ -40,6 +31,17 @@ async def _8ball(ctx, *, question): #* allows to take multiple arguments
                  "Very doubtful.", "Without a doubt.",
                  "Yes.", "Yes – definitely.", "You may rely on it."]
     await ctx.send(f'Question: {question}\n Answer: {random.choice(responses)}')
+
+@client.event
+async def on_message(message):
+    print(f'{message.author} has sent the message: {message.content}')
+    if sentiment_analysis.analyze(message.content) == 0:
+        mention = message.author.mention
+        response = f"hey {mention}, maybe chill a bit"
+        print(response)
+        await message.channel.send(response)
+
+
 
 
 client.run(Secret_Stuff.token)
